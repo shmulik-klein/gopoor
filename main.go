@@ -1,7 +1,6 @@
 package main
 
 import (
-	service "gopoor/service"
 	"os"
 )
 
@@ -11,6 +10,6 @@ func main() {
 		port = "3000"
 	}
 
-	server := service.NewServer()
+	server := NewServer()
 	server.Run(":" + port)
 }
