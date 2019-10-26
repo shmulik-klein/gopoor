@@ -1,15 +1,14 @@
 package main
 
 import (
-	"os"
+	"log"
+	"net/http"
+
+	"github.com/unrolled/render"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if len(port) == 0 {
-		port = "3000"
-	}
+	http.HandleFunc("/", PurchaseHandler(&render.Render{}))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 
-	server := NewServer()
-	server.Run(":" + port)
 }
