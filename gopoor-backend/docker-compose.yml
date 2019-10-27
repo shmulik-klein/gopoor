@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=go-poor-user
+      - POSTGRES_PASSWORD=go-poor-pass
+      - POSTGRES_DB=go-poor-db
+    restart: always
+    ports:
+      - "54320:5432"
+    networks:
+      - go-poor-network
+
+networks:
+  go-poor-network:
+    driver: bridge
