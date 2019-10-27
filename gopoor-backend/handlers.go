@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
+
 	"github.com/unrolled/render"
 )
 
@@ -16,8 +17,10 @@ type purchase struct {
 
 func PurchaseHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		db, err := sql.Open("mysql", "root:D4exufru@/gopoor?charset=utf8")
+		db, err := sql.Open("postgres", "host=localhost port=54320 user=go-poor-user "+
+			"password=go-poor-pass dbname=go-poor-db sslmode=disable")
 		checkErr(err)
+		defer db.Close()
 		stmt, err := db.Prepare("INSERT purchases SET name=?, price=?")
 		checkErr(err)
 		if req.Body == nil {
